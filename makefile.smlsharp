@@ -1,0 +1,75 @@
+# -*- Makefile -*-
+####################################################################################
+#
+# QCheck
+#     automatic unit testing of Standard ML modules.
+# 	
+####################################################################################
+
+SMLSHARP = smlsharp
+
+## search directories
+VROOT = .
+VPATH = $(VROOT):$(VROOT)/src
+INCDIR = $(patsubst %,-I%,$(subst :, ,$(VPATH)))
+
+## compile options
+SMLSHARPFLAGS = $(INCDIR)
+
+## source code
+SRC=src
+SRCS= \
+      $(SRC)/BagFromMap.sml         \
+      $(SRC)/BaseGeneratorFn.sml    \
+      $(SRC)/CMStyle.sml            \
+      $(SRC)/Files.sml              \
+      $(SRC)/GenDateTime.sml        \
+      $(SRC)/GenInt.sml             \
+      $(SRC)/GenReal.sml            \
+      $(SRC)/GenText.sml            \
+      $(SRC)/GenWord.sml            \
+      $(SRC)/PerlStyle.sml          \
+      $(SRC)/Property.sml           \
+      $(SRC)/QCheck.sml             \
+      $(SRC)/QCheckVersion.sml      \
+      $(SRC)/Rand.sml               \
+      $(SRC)/RandGen-smlsharp.sml   \
+      $(SRC)/Settings.sml           \
+      $(SRC)/StringBag.sml          \
+      $(SRC)/TextStreamIO.sml       \
+      qcheck.smi
+
+## categorise object file
+OBJS   = $(filter %.o,$(SRCS:.sml=.o))
+TARGET = qcheck.o
+
+## default targets
+all: $(TARGET) $(OBJS)
+
+$(TARGET):	$(TARGET:.o=.smi) $(OBJS)
+	$(SMLSHARP) $(SMLSHARPFLAGS) -o $@ $<
+
+## .o type rules
+%.o: %.sml
+	$(SMLSHARP) $(SMLSHARPFLAGS) -c $<
+
+## generate for SML dependence
+%.d: %.sml
+	@echo "generate [$@] from [$*]"
+	@$(SHELL) -ec '$(SMLSHARP) -MM $(SMLSHARPFLAGS) $< \
+		| sed "s!\($*\)\.o[ :]*!\1.o $@ : !g" > $@; \
+		[ -s $@ ] || rm -rf $@'
+
+
+ifeq (,$(findstring $(MAKECMDGOALS),clean))
+## include generated dependence
+include $(filter %.d,$(SRCS:.sml=.d))
+endif
+
+.PHONY: clean
+clean:
+	rm -rf $(TARGET)
+	rm -rf $(OBJS)
+	rm -rf $(filter %.d,$(SRCS:.sml=.d))
+
+
