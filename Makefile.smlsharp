@@ -7,6 +7,7 @@
 ####################################################################################
 
 SMLSHARP = smlsharp
+PERL = perl
 
 ## search directories
 VROOT = .
@@ -39,6 +40,11 @@ SRCS= \
       $(SRC)/TextStreamIO.sml       \
       qcheck.smi
 
+SHARP_SRC = \
+      $(SRC)/GENERATOR_SIG-smlsharp.sml \
+	  $(SRC)/RandGen-smlsharp.sml \
+	  tests/from-to-smlsharp.sml
+
 ## categorise object file
 OBJS   = $(filter %.o,$(SRCS:.sml=.o))
 TARGET = qcheck.o
@@ -48,6 +54,13 @@ all: $(TARGET) $(OBJS)
 
 $(TARGET):	$(TARGET:.o=.smi) $(OBJS)
 	$(SMLSHARP) $(SMLSHARPFLAGS) -o $@ $<
+
+include Makefile.version
+
+## compiler dependent modules
+$(SHARP_SRC): scripts/basis-gen.pl scripts/smlsharp-basis.pl
+	$(PERL) scripts/basis-gen.pl $(SHARP_SRC) \
+	  `$(PERL) scripts/smlsharp-basis.pl $(SMLSHARP)`
 
 ## .o type rules
 %.o: %.sml
@@ -71,5 +84,8 @@ clean:
 	rm -rf $(TARGET)
 	rm -rf $(OBJS)
 	rm -rf $(filter %.d,$(SRCS:.sml=.d))
+	rm -rf $(SHARP_SRC)
 
+realclean: clean
+mostlyclean: clean
 
