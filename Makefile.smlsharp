@@ -3,7 +3,7 @@
 #
 # QCheck
 #     automatic unit testing of Standard ML modules.
-# 	
+# 
 ####################################################################################
 
 SMLSHARP = smlsharp
@@ -19,8 +19,7 @@ SMLSHARPFLAGS = $(INCDIR)
 
 ## source code
 SRC=src
-SRCS= \
-      $(SRC)/BagFromMap.sml         \
+SRCS= $(SRC)/BagFromMap.sml         \
       $(SRC)/BaseGeneratorFn.sml    \
       $(SRC)/CMStyle.sml            \
       $(SRC)/Files.sml              \
@@ -40,19 +39,18 @@ SRCS= \
       $(SRC)/TextStreamIO.sml       \
       qcheck.smi
 
-SHARP_SRC = \
-      $(SRC)/GENERATOR_SIG-smlsharp.sml \
-	  $(SRC)/RandGen-smlsharp.sml \
-	  tests/from-to-smlsharp.sml
+SHARP_SRC = $(SRC)/GENERATOR_SIG-smlsharp.sml \
+            $(SRC)/RandGen-smlsharp.sml \
+            tests/from-to-smlsharp.sml
 
 ## categorise object file
 OBJS   = $(filter %.o,$(SRCS:.sml=.o))
 TARGET = qcheck.o
 
 ## default targets
-all: $(TARGET) $(OBJS)
+all: $(TARGET)
 
-$(TARGET):	$(TARGET:.o=.smi) $(OBJS)
+$(TARGET): $(TARGET:.o=.smi) $(OBJS)
 	$(SMLSHARP) $(SMLSHARPFLAGS) -o $@ $<
 
 include Makefile.version
