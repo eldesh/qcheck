@@ -168,12 +168,12 @@ struct
   type 'a gen = 'a S.gen
   type ('a, 'b) co = ('a, 'b) S.co
   type real = S.Real.Math.real
-  val finite : S.rand -> S.Real.Math.real * S.rand
-  val frac   : S.rand -> S.Real.Math.real * S.rand
-  val neg    : S.rand -> S.Real.Math.real * S.rand
-  val nonneg : S.rand -> S.Real.Math.real * S.rand
-  val nonpos : S.rand -> S.Real.Math.real * S.rand
-  val pos    : S.rand -> S.Real.Math.real * S.rand
-  val real   : S.rand -> S.Real.Math.real * S.rand
+  val finite : rand -> real * rand
+  val frac   : rand -> real * rand
+  val neg    : rand -> real * rand
+  val nonneg : rand -> real * rand
+  val nonpos : rand -> real * rand
+  val pos    : rand -> real * rand
+  val real   : rand -> real * rand
 end
 
