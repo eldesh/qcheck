@@ -1,6 +1,7 @@
 _require "basis.smi"
 _require "GEN_TYPES.sml"
 _require "PREGEN_SIG.sml"
+_require "PRETEXT_GENERATOR.sml"
 _require "TEXT_GENERATOR.sml"
 _require "INT_GENERATOR.sml"
 
