@@ -1,0 +1,23 @@
+_require "basis.smi"
+_require "qcheck.smi"
+
+functor TestFromToString (
+  T : (* FROM_TO *)
+  sig
+    type t
+    val toString : t -> string
+    val fromString : string -> t option
+
+    val eqT : t * t -> bool
+    val eqStr : string * string -> bool
+
+    val genT : t QCheck.Gen.gen
+    val genStr : string QCheck.Gen.gen
+
+    val valid : string list
+    val invalid : string list
+    val name : string
+  end)
+=
+struct (* empty *) end
+
