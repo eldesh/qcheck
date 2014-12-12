@@ -186,6 +186,10 @@ struct
     val nonneg : real gen
     val finite : real gen
   end
+  (* avoid SML# bug which reports:
+   * > uncaught exception: Bug.Bug: compilePrim: Float_notEqual \
+         at src/compiler/datatypecompilation/main/PrimitiveTypedLambda.sml:120
+   * make: *** [src/RandGen-smlsharp.o] Error 1
   structure Real32 = (* REAL_GENERATOR *)
   struct
     type rand = rand
@@ -201,6 +205,7 @@ struct
     val nonneg : real gen
     val finite : real gen
   end
+  *)
   structure Real64 = (* REAL_GENERATOR *)
   struct
     type rand = rand
