@@ -18,7 +18,7 @@ INCDIR = $(patsubst %,-I%,$(subst :, ,$(VPATH)))
 SMLSHARPFLAGS = $(INCDIR)
 
 ## test patterns
-TESTS = reverse compose from-to-str
+TESTS = compose reverse from-to-str from-to-smlsharp
 
 ## source code
 SRC=src
