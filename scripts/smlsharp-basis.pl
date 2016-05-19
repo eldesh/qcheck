@@ -16,7 +16,7 @@ check_structure('Position');
 
 check_structure('LargeReal');
 check_structure('Real');
-# check_structure('Real32');
+check_structure('Real32');
 check_structure('Real64');
 
 check_structure('LargeWord');
