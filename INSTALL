@@ -14,7 +14,7 @@ systems:
 
    * Poly/ML 5.1 Testing    RTS version: I386-5.1
 
-   * SML# version 1.2.0 for x86-linux
+   * SML# version 3.0.1 for x86_64-linux
 
    Inquiries and recommendations on improving compatibility are welcome.
 The following sections provide simple installation instructions for each
@@ -107,9 +107,11 @@ QCheck from Poly/ML.  Running
 2.5 SML#
 ===========
 
-    make -f Makefile.smlsharp
+QCheck will also work with SML#.
+SML# requires separate compilation like below:
 
-will generate object file `qcheck.o' .
+     make -f Makefile.smlsharp
+
 To use QCheck as a library from SML#, add '_require "/path/to/qcheck.smi"'
  to your .smi files.
 
