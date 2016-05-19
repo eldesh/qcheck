@@ -113,6 +113,20 @@ struct
     val nonneg : int gen
     val coint : (int, 'b) co
   end
+  structure Int64 = (* INT_GENERATOR *)
+  struct
+    type rand = rand
+    type 'a gen = rand -> 'a * rand
+    type ('a, 'b) co = 'a -> 'b gen -> 'b gen
+    
+    type int = Int64.int
+    val int : int gen
+    val pos : int gen
+    val neg : int gen
+    val nonpos : int gen
+    val nonneg : int gen
+    val coint : (int, 'b) co
+  end
   structure IntInf = (* INT_GENERATOR *)
   struct
     type rand = rand
@@ -186,10 +200,6 @@ struct
     val nonneg : real gen
     val finite : real gen
   end
-  (* avoid SML# bug which reports:
-   * > uncaught exception: Bug.Bug: compilePrim: Float_notEqual \
-         at src/compiler/datatypecompilation/main/PrimitiveTypedLambda.sml:120
-   * make: *** [src/RandGen-smlsharp.o] Error 1
   structure Real32 = (* REAL_GENERATOR *)
   struct
     type rand = rand
@@ -205,7 +215,6 @@ struct
     val nonneg : real gen
     val finite : real gen
   end
-  *)
   structure Real64 = (* REAL_GENERATOR *)
   struct
     type rand = rand
@@ -259,6 +268,16 @@ struct
     type ('a, 'b) co = 'a -> 'b gen -> 'b gen
   
     type word = Word32.word
+    val word : word gen
+    val coword : (word, 'b) co
+  end
+  structure Word64 = (* WORD_GENERATOR *)
+  struct
+    type rand = rand
+    type 'a gen = rand -> 'a * rand
+    type ('a, 'b) co = 'a -> 'b gen -> 'b gen
+  
+    type word = Word64.word
     val word : word gen
     val coword : (word, 'b) co
   end
