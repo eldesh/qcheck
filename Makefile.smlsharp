@@ -47,13 +47,9 @@ SHARP_SRC = $(SRC)/GENERATOR_SIG-smlsharp.sml \
 
 ## categorise object file
 OBJS   = $(filter %.o,$(SRCS:.sml=.o))
-TARGET = qcheck.o
 
 ## default targets
 all: $(OBJS)
-
-$(TARGET): $(TARGET:.o=.smi) $(OBJS)
-	$(SMLSHARP) $(SMLSHARPFLAGS) -o $@ $<
 
 include Makefile.version
 
@@ -64,11 +60,12 @@ $(SHARP_SRC): scripts/basis-gen.pl scripts/smlsharp-basis.pl
 
 ## .o type rules
 %.o: %.sml
-	$(SMLSHARP) $(SMLSHARPFLAGS) -c $<
+	@echo "  SML# [$@]"
+	@SMLSHARP_HEAPSIZE=32M:2G $(SMLSHARP) $(SMLSHARPFLAGS) -c $<
 
 ## generate for SML dependence
 %.d: %.sml
-	@echo "generate [$@] from [$*]"
+	@echo "  GEN [$@]"
 	@$(SHELL) -ec '$(SMLSHARP) -MM $(SMLSHARPFLAGS) $< \
 		| sed "s!\($*\)\.o[ :]*!\1.o $@ : !g" > $@; \
 		[ -s $@ ] || rm -rf $@'
@@ -101,12 +98,12 @@ endif
 
 .PHONY: clean
 clean:
-	rm -rf $(TARGET)
-	rm -rf $(OBJS)
-	rm -rf $(filter %.d,$(SRCS:.sml=.d))
-	rm -rf $(SHARP_SRC)
-	rm -rf $(TEST_SRCS:.sml=.d)
-	rm -rf $(TEST_OBJS)
+	$(RM) $(OBJS)
+	$(RM) $(filter %.d,$(SRCS:.sml=.d))
+	$(RM) $(SHARP_SRC)
+	$(RM) $(TEST_SRCS:.sml=.d)
+	$(RM) $(TEST_OBJS)
+	$(RM) $(TEST_EXES)
 
 realclean: clean
 mostlyclean: clean
