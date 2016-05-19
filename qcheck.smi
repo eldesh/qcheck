@@ -2,5 +2,4 @@ include "src/QCheck.smi"
 include "src/CMStyle.smi"
 include "src/GenInt.smi"
 include "src/PerlStyle.smi"
-include "src/CMStyle.smi"
 
