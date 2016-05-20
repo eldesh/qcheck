@@ -36,6 +36,7 @@ functor GenInt
     val option : bool gen -> 'a gen -> 'a option gen
     val vector : (int * (int -> 'a) -> 'b) -> int gen * 'a gen -> 'b gen
     val variant : (int,'a) co
+    val variant' : (int * int,'a) co
     val arrow : ('a,'b) co * 'b gen -> ('a -> 'b) gen
     val cobool : (bool,'a) co
     val colist : ('a,'b) co -> ('a list,'b) co
