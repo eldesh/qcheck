@@ -100,6 +100,34 @@ struct
     val nonneg : int gen
     val coint : (int, 'b) co
   end
+  structure Int8 = (* INT_GENERATOR *)
+  struct
+    type rand = rand
+    type 'a gen = rand -> 'a * rand
+    type ('a, 'b) co = 'a -> 'b gen -> 'b gen
+
+    type int = Int8.int
+    val int : int gen
+    val pos : int gen
+    val neg : int gen
+    val nonpos : int gen
+    val nonneg : int gen
+    val coint : (int, 'b) co
+  end
+  structure Int16 = (* INT_GENERATOR *)
+  struct
+    type rand = rand
+    type 'a gen = rand -> 'a * rand
+    type ('a, 'b) co = 'a -> 'b gen -> 'b gen
+
+    type int = Int16.int
+    val int : int gen
+    val pos : int gen
+    val neg : int gen
+    val nonpos : int gen
+    val nonneg : int gen
+    val coint : (int, 'b) co
+  end
   structure Int32 = (* INT_GENERATOR *)
   struct
     type rand = rand
@@ -259,6 +287,16 @@ struct
     type ('a, 'b) co = 'a -> 'b gen -> 'b gen
   
     type word = Word8.word
+    val word : word gen
+    val coword : (word, 'b) co
+  end
+  structure Word16 = (* WORD_GENERATOR *)
+  struct
+    type rand = rand
+    type 'a gen = rand -> 'a * rand
+    type ('a, 'b) co = 'a -> 'b gen -> 'b gen
+
+    type word = Word16.word
     val word : word gen
     val coword : (word, 'b) co
   end
