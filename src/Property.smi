@@ -9,7 +9,7 @@ struct
 	type stats = { tags : StringBag.bag, count : int }
 
 	type 'a pred = 'a -> bool
-	type 'a prop (= boxed)
+	type 'a prop (= ->)
 	val pred : 'a pred -> 'a prop
 	val pred2 : ('a * 'b) pred -> 'b -> 'a prop
 

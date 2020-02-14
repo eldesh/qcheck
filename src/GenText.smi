@@ -369,7 +369,7 @@ struct
   val colist : ('a, 'b) co -> ('a list, 'b) co
   val coopt : ('a, 'b) co -> ('a option, 'b) co
   
-  type stream (= S.Gen.stream)
+  type stream = S.Gen.stream
   val start : rand -> stream
   val limit' : int -> 'a gen -> ('a,stream) reader
   val limit : 'a gen -> ('a,stream) reader

@@ -5,7 +5,7 @@ _require "TextStreamIO.smi"
 structure Files =
 struct
   type ('a,'b) reader = 'b -> ('a * 'b) option
-  type dirstream (= boxed)
+  type dirstream (= *)
   val openDir : string -> dirstream
   val nextFile : (string, dirstream) reader
 
