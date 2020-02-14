@@ -37,10 +37,9 @@ sub check_structure
 {
     my($s) = @_;
     open(ML, '>test.sml') or die 'cannot write test.sml';
-    print ML "TextIO.closeOut TextIO.stdErr;\n";
     print ML "structure S = $s\n";
     close(ML);
-    my $r = system("$sml < test.sml | grep 'Error' >/dev/null");
+    my $r = system("$sml < test.sml 2>&1 | grep 'Error' >/dev/null");
     if( $r )
     {
         print "$s\n";
