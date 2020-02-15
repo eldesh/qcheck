@@ -55,8 +55,8 @@ include Makefile.version
 
 ## compiler dependent modules
 $(SHARP_SRC): scripts/basis-gen.pl scripts/smlsharp-basis.pl
-	$(PERL) scripts/basis-gen.pl $(SHARP_SRC) \
-	  `$(PERL) scripts/smlsharp-basis.pl $(SMLSHARP)`
+	$(PERL) scripts/smlsharp-basis.pl $(SMLSHARP) | \
+	   $(PERL) scripts/basis-gen.pl $(SMLSHARP)
 
 ## .o type rules
 %.o: %.sml

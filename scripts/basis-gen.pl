@@ -1,9 +1,11 @@
 #! /usr/bin/perl
 use strict;
 
-my $sigFile = shift @ARGV;
-my $genFile = shift @ARGV;
-my $testFile = shift @ARGV;
+my $impl = shift @ARGV;
+
+my $sigFile = "src/GENERATOR_SIG-${impl}.sml";
+my $genFile = "src/RandGen-${impl}.sml";
+my $testFile = "tests/from-to-${impl}.sml";
 
 open(SIG, ">$sigFile") or die 'cannot write sig';
 open(GEN, ">$genFile") or die 'cannot write gen';
@@ -27,8 +29,9 @@ struct
   in 
 EOF
 
-foreach my $mod (@ARGV)
+foreach my $mod (<STDIN>)
 {
+    chomp($mod);
     if($mod =~ /Int|Position/)
     {
         print SIG "structure $mod : INT_GENERATOR\n";
