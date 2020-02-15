@@ -32,6 +32,7 @@ tests/from-to-poly.sml
 *.d
 src/GENERATOR_SIG-smlsharp.sml
 src/RandGen-smlsharp.sml
+src/RandGen-smlsharp.smi
 tests/from-to-smlsharp.sml
 
 /tests/from-to-smlsharp

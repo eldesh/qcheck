@@ -46,6 +46,9 @@ SHARP_SRC = $(SRC)/GENERATOR_SIG-smlsharp.sml \
             $(SRC)/RandGen-smlsharp.smi \
             tests/from-to-smlsharp.sml
 
+## primitive types privided by smlsharp
+PRIM_TYPE = prim_type
+
 ## categorise object file
 OBJS   = $(filter %.o,$(SRCS:.sml=.o))
 
@@ -55,9 +58,11 @@ all: $(OBJS)
 include Makefile.version
 
 ## compiler dependent modules
-$(SHARP_SRC): scripts/basis-gen.pl scripts/smlsharp-basis.pl
-	$(PERL) scripts/smlsharp-basis.pl $(SMLSHARP) | \
-	   $(PERL) scripts/basis-gen.pl $(SMLSHARP)
+$(PRIM_TYPE): scripts/basis-gen.pl scripts/smlsharp-basis.pl
+	$(PERL) scripts/smlsharp-basis.pl $(SMLSHARP) | tee $@
+
+$(SHARP_SRC): $(PRIM_TYPE)
+	$(PERL) scripts/basis-gen.pl $(SMLSHARP) < $^
 
 ## .o type rules
 %.o: %.sml
@@ -101,11 +106,12 @@ endif
 clean:
 	$(RM) $(OBJS)
 	$(RM) $(filter %.d,$(SRCS:.sml=.d))
-	$(RM) $(SHARP_SRC)
 	$(RM) $(TEST_SRCS:.sml=.d)
 	$(RM) $(TEST_OBJS)
 	$(RM) $(TEST_EXES)
 
-realclean: clean
-mostlyclean: clean
+.PHONY: distclean
+distclean: clean
+	$(RM) $(PRIM_TYPE)
+	$(RM) $(SHARP_SRC)
 
