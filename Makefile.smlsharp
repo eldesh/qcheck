@@ -6,7 +6,8 @@
 # 
 ####################################################################################
 
-SMLSHARP = smlsharp
+SMLSHARP := smlsharp
+SMLSHARP_VER := 3.5.0
 PERL = perl
 
 ## search directories
@@ -62,7 +63,7 @@ $(PRIM_TYPE): scripts/basis-gen.pl scripts/smlsharp-basis.pl
 	$(PERL) scripts/smlsharp-basis.pl $(SMLSHARP) | tee $@
 
 $(SHARP_SRC): $(PRIM_TYPE)
-	$(PERL) scripts/basis-gen.pl $(SMLSHARP) < $^
+	$(PERL) scripts/basis-gen.pl $(SMLSHARP) --version=$(SMLSHARP_VER) < $^
 
 ## .o type rules
 %.o: %.sml
