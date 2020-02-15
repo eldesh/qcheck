@@ -43,6 +43,7 @@ SRCS= $(SRC)/BagFromMap.sml         \
 
 SHARP_SRC = $(SRC)/GENERATOR_SIG-smlsharp.sml \
             $(SRC)/RandGen-smlsharp.sml \
+            $(SRC)/RandGen-smlsharp.smi \
             tests/from-to-smlsharp.sml
 
 ## categorise object file
